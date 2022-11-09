@@ -4,8 +4,10 @@ import game_world
 
 from grass import Grass
 from boy import Boy
+from bird import Bird
 
-
+# bird = None
+birds = None
 boy = None
 grass = None
 
@@ -22,24 +24,33 @@ def handle_events():
 
 # 초기화
 def enter():
-    global boy, grass
+    global boy, grass, bird, birds
     boy = Boy()
     grass = Grass()
+    # bird = Bird()
+    birds = [Bird() for i in range(10)]
+    for bird in birds:
+        game_world.add_object(bird, 1)
+
     game_world.add_object(grass, 0)
-    game_world.add_object(boy, 1)
+    # game_world.add_object(bird, 1)
 
 
 # 종료
 def exit():
     game_world.clear()
 
+
 def update():
     for game_object in game_world.all_objects():
         game_object.update()
+    delay(0.01)
+
 
 def draw_world():
     for game_object in game_world.all_objects():
         game_object.draw()
+
 
 def draw():
     clear_canvas()
